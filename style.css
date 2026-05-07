@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= SLIM NAVBAR ================= */
+/* ================= NAVBAR ================= */
 header {
   position: fixed;
   top: 0;
@@ -26,8 +26,7 @@ header {
   justify-content: space-between;
   align-items: center;
 
-  padding: 5px 14px; /* 🔥 very slim */
-
+  padding: 6px 14px;
   background: rgba(0, 30, 15, 0.55);
   backdrop-filter: blur(10px);
 
@@ -36,14 +35,10 @@ header {
 
 header h2 {
   font-size: 12px;
-  letter-spacing: 0.5px;
   color: #b8ffcc;
 }
 
 header nav a {
-  text-decoration: none;
-  color: #d6ffe6;
-
   font-size: 10px;
   padding: 3px 8px;
   margin: 0 2px;
@@ -51,12 +46,8 @@ header nav a {
   border-radius: 999px;
   background: rgba(0,255,120,0.07);
 
-  transition: 0.25s ease;
-}
-
-header nav a:hover {
-  background: rgba(0,255,120,0.2);
-  transform: translateY(-1px);
+  color: #d6ffe6;
+  text-decoration: none;
 }
 
 /* ================= HERO ================= */
@@ -71,47 +62,65 @@ header nav a:hover {
   position: relative;
 }
 
+/* DARK OVERLAY */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-
-  background: linear-gradient(
-    120deg,
-    rgba(0,0,0,0.75),
-    rgba(0,255,120,0.15)
-  );
+  background: rgba(0,0,0,0.65);
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* ================= GLOBAL IMAGE DARKEN ================= */
+/* FIX CLICKABLE CONTENT */
+.hero-text {
+  position: relative;
+  z-index: 5;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: #00ff88;
+  color: black;
+  border-radius: 999px;
+  font-weight: bold;
+  text-decoration: none;
+
+  position: relative;
+  z-index: 10;
+}
+
+/* ================= SECTIONS ================= */
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+/* ACTIVE ANIMATION */
+.page.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* IMAGE */
 .image-side {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
 
-  filter: brightness(0.75) contrast(1.05); /* 🔥 GLOBAL DARKEN */
+  filter: brightness(0.6);
 }
 
-/* extra overlay for readability */
-.image-side::after,
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.30);
-}
-
-/* ================= PAGE ================= */
-.page {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  overflow: hidden;
-}
-
-/* ================= TEXT PANEL ================= */
+/* TEXT PANEL */
 .text-side {
   position: relative;
   z-index: 2;
@@ -124,8 +133,10 @@ header nav a:hover {
   flex-direction: column;
   justify-content: center;
 
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(10, 10, 10, 0.65);
   backdrop-filter: blur(10px);
+
+  border-left: 1px solid rgba(0,255,120,0.12);
 }
 
 /* TEXT */
@@ -138,20 +149,8 @@ header nav a:hover {
 .text-side p {
   font-size: 16px;
   line-height: 1.9;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255,255,255,0.88);
   white-space: pre-line;
-}
-
-/* ================= BUTTON ================= */
-.btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 25px;
-  background: #00ff88;
-  color: black;
-  border-radius: 999px;
-  font-weight: bold;
-  text-decoration: none;
 }
 
 /* ================= CAROUSEL ================= */
@@ -202,11 +201,6 @@ header nav a:hover {
     padding: 8px;
   }
 
-  header nav a {
-    font-size: 10px;
-    padding: 3px 6px;
-  }
-
   .page {
     display: block;
   }
@@ -215,7 +209,7 @@ header nav a:hover {
     width: 100%;
     margin: 0;
     padding: 25px;
-    background: rgba(0,0,0,0.55);
+    background: rgba(10,10,10,0.75);
   }
 
   .text-side h2 {
