@@ -23,7 +23,7 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 15px 25px;
-  background: rgba(0, 40, 20, 0.7);
+  background: rgba(0, 40, 20, 0.75);
   backdrop-filter: blur(12px);
   z-index: 1000;
 }
@@ -71,16 +71,16 @@ nav a {
   text-decoration: none;
 }
 
-/* ================= PAGE LAYOUT FIX ================= */
+/* ================= PAGE STRUCTURE FIX ================= */
 .page {
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   overflow: hidden;
 }
 
-/* IMAGE BACKGROUND */
+/* IMAGE */
 .image-side {
   position: absolute;
   inset: 0;
@@ -89,22 +89,23 @@ nav a {
   z-index: 1;
 }
 
-/* ================= TEXT SIDE (FIXED READABILITY) ================= */
+/* TEXT PANEL (FIXED PROPERLY) */
 .text-side {
   position: relative;
   z-index: 2;
 
-  width: 55%;
+  width: 50%;
   margin-left: auto;
-  padding: 80px;
+
+  padding: 70px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  /* readability overlay */
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(8px);
+  /* READABILITY FIX */
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
 
   border-left: 2px solid rgba(0,255,120,0.15);
 }
@@ -123,9 +124,9 @@ nav a {
   z-index: -1;
 }
 
-/* TEXT STYLE */
+/* TEXT */
 .text-side h2 {
-  font-size: 40px;
+  font-size: 38px;
   margin-bottom: 15px;
   color: #eafff0;
   text-shadow: 0 2px 10px rgba(0,0,0,0.7);
@@ -182,7 +183,7 @@ nav a {
   100% { transform: translateX(-50%); }
 }
 
-/* ================= MOBILE FIX (IMPORTANT) ================= */
+/* ================= MOBILE FIX (THIS IS THE KEY) ================= */
 @media (max-width: 768px) {
 
   header {
@@ -191,16 +192,13 @@ nav a {
     text-align: center;
   }
 
-  .hero-text h1 {
-    font-size: 32px;
-  }
-
-  .hero-text p {
-    font-size: 14px;
-  }
-
   .page {
-    flex-direction: column;
+    display: block; /* IMPORTANT FIX */
+  }
+
+  .image-side {
+    position: absolute;
+    inset: 0;
   }
 
   .text-side {
@@ -208,8 +206,10 @@ nav a {
     margin: 0;
     padding: 25px;
 
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(8px);
+
+    border-left: none;
   }
 
   .text-side h2 {
