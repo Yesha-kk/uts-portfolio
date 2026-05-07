@@ -1,31 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  document.querySelectorAll("nav a").forEach(a => {
-    a.addEventListener("click", e => {
+  // smooth scroll nav
+  document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", e => {
       e.preventDefault();
-      document.querySelector(a.getAttribute("href"))
+      document.querySelector(link.getAttribute("href"))
         .scrollIntoView({ behavior: "smooth" });
     });
   });
 
+  // duplicate carousel for infinite effect
   const slides = document.querySelector(".slides-wrapper");
   if (slides) slides.innerHTML += slides.innerHTML;
 
   const gallery = document.querySelector(".gallery");
   if (gallery) gallery.innerHTML += gallery.innerHTML;
 
-  const elements = document.querySelectorAll(".reveal");
+  // scroll animation system
+  const sections = document.querySelectorAll(".page");
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-      } else {
-        entry.target.classList.remove("active");
+  function reveal() {
+    const trigger = window.innerHeight - 120;
+
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+
+      if (top < trigger) {
+        sec.classList.add("active");
       }
     });
-  }, { threshold: 0.15 });
+  }
 
-  elements.forEach(el => observer.observe(el));
-
+  window.addEventListener("scroll", reveal);
+  reveal(); // run on load
 });
