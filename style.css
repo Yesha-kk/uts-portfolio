@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -17,52 +16,27 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= GLOBAL TRANSITIONS ================= */
-.page,
-.hero,
-.text-side,
-.slide,
-.gallery img,
-.btn,
-nav a {
-  transition: all 0.5s ease;
-  will-change: transform, opacity;
-}
-
-/* ================= TOUCH FEEDBACK (MOBILE FEEL) ================= */
-nav a:active,
-.btn:active {
-  transform: scale(0.96);
-  opacity: 0.85;
-}
-
-/* ================= REVEAL ANIMATION ================= */
-.reveal {
-  opacity: 0;
-  transform: translateY(25px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ================= HEADER ================= */
+/* ================= SLIM NAVBAR ================= */
 header {
   position: fixed;
   top: 0;
   width: 100%;
+
   display: flex;
   justify-content: space-between;
-  padding: 8px 18px;
-  background: rgba(0, 40, 20, 0.55);
+  align-items: center;
+
+  padding: 5px 14px; /* 🔥 very slim */
+
+  background: rgba(0, 30, 15, 0.55);
   backdrop-filter: blur(10px);
+
   z-index: 1000;
 }
 
 header h2 {
-  font-size: 14px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
   color: #b8ffcc;
 }
 
@@ -70,14 +44,19 @@ header nav a {
   text-decoration: none;
   color: #d6ffe6;
 
-  margin: 0 3px;
-  padding: 4px 10px;
+  font-size: 10px;
+  padding: 3px 8px;
+  margin: 0 2px;
 
   border-radius: 999px;
+  background: rgba(0,255,120,0.07);
 
-  background: rgba(0,255,120,0.08);
+  transition: 0.25s ease;
+}
 
-  font-size: 11px;
+header nav a:hover {
+  background: rgba(0,255,120,0.2);
+  transform: translateY(-1px);
 }
 
 /* ================= HERO ================= */
@@ -87,6 +66,7 @@ header nav a {
   justify-content: center;
   align-items: center;
   text-align: center;
+
   background: url("Understanding.jpg") center/cover no-repeat;
   position: relative;
 }
@@ -95,12 +75,71 @@ header nav a {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, rgba(0,0,0,0.7), rgba(0,255,120,0.2));
+
+  background: linear-gradient(
+    120deg,
+    rgba(0,0,0,0.75),
+    rgba(0,255,120,0.15)
+  );
 }
 
-.hero-text {
+/* ================= GLOBAL IMAGE DARKEN ================= */
+.image-side {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+
+  filter: brightness(0.75) contrast(1.05); /* 🔥 GLOBAL DARKEN */
+}
+
+/* extra overlay for readability */
+.image-side::after,
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.30);
+}
+
+/* ================= PAGE ================= */
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ================= TEXT PANEL ================= */
+.text-side {
   position: relative;
   z-index: 2;
+
+  width: 50%;
+  margin-left: auto;
+  padding: 70px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+/* TEXT */
+.text-side h2 {
+  font-size: 38px;
+  margin-bottom: 15px;
+  color: #eafff0;
+}
+
+.text-side p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.92);
+  white-space: pre-line;
 }
 
 /* ================= BUTTON ================= */
@@ -113,56 +152,6 @@ header nav a {
   border-radius: 999px;
   font-weight: bold;
   text-decoration: none;
-}
-
-/* ================= PAGE ================= */
-.page {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: stretch;
-  overflow: hidden;
-}
-
-/* IMAGE */
-.image-side {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-}
-
-/* TEXT */
-.text-side {
-  position: relative;
-  z-index: 2;
-
-  width: 50%;
-  margin-left: auto;
-
-  padding: 70px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(10px);
-}
-
-/* TEXT STYLING */
-.text-side h2 {
-  font-size: 38px;
-  margin-bottom: 15px;
-  color: #eafff0;
-}
-
-.text-side p {
-  font-size: 16px;
-  line-height: 1.9;
-  color: rgba(255,255,255,0.92);
-  white-space: pre-line;
 }
 
 /* ================= CAROUSEL ================= */
@@ -195,7 +184,7 @@ header nav a {
   border-radius: 12px;
 }
 
-/* ================= ANIMATIONS ================= */
+/* ================= ANIMATION ================= */
 @keyframes slide {
   100% { transform: translateX(-50%); }
 }
@@ -207,21 +196,15 @@ header nav a {
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
 
-  * {
-    transition-duration: 0.4s !important;
-  }
-
   header {
     flex-direction: column;
-    gap: 6px;
-    padding: 10px;
+    gap: 5px;
+    padding: 8px;
   }
 
-  header nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
+  header nav a {
+    font-size: 10px;
+    padding: 3px 6px;
   }
 
   .page {
