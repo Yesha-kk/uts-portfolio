@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -15,6 +17,37 @@ body {
   overflow-x: hidden;
 }
 
+/* ================= GLOBAL TRANSITIONS ================= */
+.page,
+.hero,
+.text-side,
+.slide,
+.gallery img,
+.btn,
+nav a {
+  transition: all 0.5s ease;
+  will-change: transform, opacity;
+}
+
+/* ================= TOUCH FEEDBACK (MOBILE FEEL) ================= */
+nav a:active,
+.btn:active {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+/* ================= REVEAL ANIMATION ================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ================= HEADER ================= */
 header {
   position: fixed;
@@ -22,19 +55,29 @@ header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 15px 25px;
-  background: rgba(0, 40, 20, 0.75);
-  backdrop-filter: blur(12px);
+  padding: 8px 18px;
+  background: rgba(0, 40, 20, 0.55);
+  backdrop-filter: blur(10px);
   z-index: 1000;
 }
 
-nav a {
+header h2 {
+  font-size: 14px;
+  color: #b8ffcc;
+}
+
+header nav a {
   text-decoration: none;
-  color: white;
-  margin: 0 5px;
-  padding: 6px 12px;
+  color: #d6ffe6;
+
+  margin: 0 3px;
+  padding: 4px 10px;
+
   border-radius: 999px;
-  background: rgba(255,255,255,0.05);
+
+  background: rgba(0,255,120,0.08);
+
+  font-size: 11px;
 }
 
 /* ================= HERO ================= */
@@ -60,6 +103,7 @@ nav a {
   z-index: 2;
 }
 
+/* ================= BUTTON ================= */
 .btn {
   display: inline-block;
   margin-top: 20px;
@@ -71,7 +115,7 @@ nav a {
   text-decoration: none;
 }
 
-/* ================= PAGE STRUCTURE FIX ================= */
+/* ================= PAGE ================= */
 .page {
   position: relative;
   min-height: 100vh;
@@ -89,7 +133,7 @@ nav a {
   z-index: 1;
 }
 
-/* TEXT PANEL (FIXED PROPERLY) */
+/* TEXT */
 .text-side {
   position: relative;
   z-index: 2;
@@ -103,48 +147,25 @@ nav a {
   flex-direction: column;
   justify-content: center;
 
-  /* READABILITY FIX */
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(10px);
-
-  border-left: 2px solid rgba(0,255,120,0.15);
 }
 
-/* GREEN GLOW */
-.text-side::before {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  right: -250px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: radial-gradient(circle, rgba(0,255,120,0.15), transparent 70%);
-  filter: blur(80px);
-  z-index: -1;
-}
-
-/* TEXT */
+/* TEXT STYLING */
 .text-side h2 {
   font-size: 38px;
   margin-bottom: 15px;
   color: #eafff0;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
 
 .text-side p {
   font-size: 16px;
   line-height: 1.9;
   color: rgba(255,255,255,0.92);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.75);
   white-space: pre-line;
 }
 
 /* ================= CAROUSEL ================= */
-.carousel {
-  padding: 50px;
-}
-
 .slides-wrapper {
   display: flex;
   gap: 20px;
@@ -174,7 +195,7 @@ nav a {
   border-radius: 12px;
 }
 
-/* ================= ANIMATION ================= */
+/* ================= ANIMATIONS ================= */
 @keyframes slide {
   100% { transform: translateX(-50%); }
 }
@@ -183,33 +204,35 @@ nav a {
   100% { transform: translateX(-50%); }
 }
 
-/* ================= MOBILE FIX (THIS IS THE KEY) ================= */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
+
+  * {
+    transition-duration: 0.4s !important;
+  }
 
   header {
     flex-direction: column;
-    gap: 10px;
-    text-align: center;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  header nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
   }
 
   .page {
-    display: block; /* IMPORTANT FIX */
-  }
-
-  .image-side {
-    position: absolute;
-    inset: 0;
+    display: block;
   }
 
   .text-side {
     width: 100%;
     margin: 0;
     padding: 25px;
-
     background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(8px);
-
-    border-left: none;
   }
 
   .text-side h2 {
